@@ -1,48 +1,34 @@
-import React from 'react';
-import axios from 'axios';
+import React, { Component } from 'react';
 
-export default class App extends React.Component {
-  state = {
-    email: '',
-    password: ''
-  }
+class App extends Component {
 
-  handleChange = event => {
-    this.setState({ email: event.target.value });
-    this.setState({ password: event.target.value });
-  }
+    state = {displayBio: false};
 
-  handleSubmit = event => {
-    event.preventDefault();
+    toggleDisplayBio = () => {
+        this.setState({displayBio: !this.state.displayBio});
+    }
 
-    const user = {
-      email: this.state.email,
-      password: this.state.password
-    };
-
-    axios.post(`http://mygym.test:8888/controller/loginController.php`, { user })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-  }
-
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Email:
-            <input type="text" name="email" onChange={this.handleChange} />
-          </label>
-          <label>
-            Password:
-            <input type="password" name="password" onChange={this.handleChange} />
-          </label>
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    )
-  }
+    render(){
+        return(
+            <div>
+                <h1>Hello</h1>
+                <p>LBP003 you're the best in the world and You'll be a billionaire soon</p>
+            {
+            this.state.displayBio ? (
+                    <div>
+                        <p>I love React</p>
+                        <p>Js is the best</p>
+                        <button onClick={this.toggleDisplayBio}>Show less</button>
+                    </div>
+                ) : (
+                    <div>
+                    <button onClick={this.toggleDisplayBio}>Read more</button>
+                    </div>
+                )
+            }  
+            </div>
+        )
+    }     
 }
 
+export default App;
