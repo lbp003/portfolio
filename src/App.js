@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import Projects from './Projects';
+import SocialProfiles from './SocialProfiles';
+import profilePic from './assets/profile.jpg';
 
 class App extends Component {
 
@@ -11,13 +14,14 @@ class App extends Component {
     render(){
         return(
             <div>
+                <img src={profilePic} alt='profile Pic' className='profile'/>
                 <h1>Hello</h1>
-                <p>LBP003 you're the best in the world and You'll be a billionaire soon</p>
+                <p>I'm Mr. LBP003. I'm a software engineer. I love coding. This is my React Js App</p>
             {
             this.state.displayBio ? (
                     <div>
-                        <p>I love React</p>
-                        <p>Js is the best</p>
+                        <p>Good Luck!</p>
+                        <p>You found me</p>
                         <button onClick={this.toggleDisplayBio}>Show less</button>
                     </div>
                 ) : (
@@ -26,7 +30,12 @@ class App extends Component {
                     </div>
                 )
             }  
+                <hr />
+                <Projects />
+                <br />
+                <SocialProfiles />
             </div>
+           
         )
     }     
 }
