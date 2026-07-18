@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lakshan Peramuna — Full-Stack Software Engineer</title>
+  <meta name="description" content="Lakshan Peramuna — Full-Stack Software Engineer with 7+ years building scalable web applications with PHP, Laravel, Symfony, React, Vue and Next.js, applying AI across the full software development life cycle. Based in Perth, WA, Australia." />
+  <meta name="author" content="Lakshan Peramuna" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Lakshan Peramuna — Full-Stack Software Engineer" />
+  <meta property="og:description" content="7+ years building scalable web applications, applying AI across the full software development life cycle. PHP · Laravel · Symfony · React · Vue · Next.js." />
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg-soft: #0f1526;
+      --bg-card: #121a30;
+      --bg-card-hover: #16203a;
+      --border: #223052;
+      --border-soft: #1a253f;
+      --text: #e6ecfb;
+      --text-muted: #9aa8c7;
+      --text-dim: #6b7896;
+      --accent: #38e1c4;
+      --accent-2: #6c8cff;
+      --accent-soft: rgba(56, 225, 196, 0.12);
+      --shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.6);
+      --radius: 16px;
+      --maxw: 1080px;
+    }
+
+    [data-theme="light"] {
+      --bg: #f6f8fd;
+      --bg-soft: #eef2fb;
+      --bg-card: #ffffff;
+      --bg-card-hover: #ffffff;
+      --border: #dbe3f2;
+      --border-soft: #e6ecf7;
+      --text: #10192e;
+      --text-muted: #4a5878;
+      --text-dim: #7382a1;
+      --accent: #0ea88f;
+      --accent-2: #4664e6;
+      --accent-soft: rgba(14, 168, 143, 0.1);
+      --shadow: 0 20px 50px -24px rgba(30, 50, 90, 0.25);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+    /* ---------- Background glow ---------- */
+    .bg-fx {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+    }
+    .bg-fx::before, .bg-fx::after {
+      content: ""; position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.5;
+    }
+    .bg-fx::before {
+      width: 480px; height: 480px; top: -140px; right: -80px;
+      background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    }
+    .bg-fx::after {
+      width: 420px; height: 420px; bottom: -120px; left: -100px;
+      background: radial-gradient(circle, var(--accent-2) 0%, transparent 70%);
+    }
+    .grid-fx {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background-image:
+        linear-gradient(var(--border-soft) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+      opacity: 0.4;
+    }
+
+    /* ---------- Nav ---------- */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    header.scrolled { border-bottom-color: var(--border-soft); }
+    nav {
+      max-width: var(--maxw); margin: 0 auto; padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; display: flex; align-items: center; gap: 10px; }
+    .brand .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--text-muted); font-size: 0.92rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .theme-btn {
+      background: var(--bg-card); border: 1px solid var(--border); color: var(--text);
+      width: 40px; height: 40px; border-radius: 10px; cursor: pointer;
+      display: grid; place-items: center; font-size: 1.05rem; transition: all 0.2s;
+    }
+    .theme-btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .menu-toggle { display: none; background: none; border: none; color: var(--text); cursor: pointer; }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 96px 0 72px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; font-weight: 500; color: var(--accent);
+      background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 26px;
+    }
+    .eyebrow .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--accent); } 50% { opacity: 0.6; box-shadow: 0 0 0 5px transparent; } }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 6vw, 4.3rem); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 18px;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(120deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero .role { font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 600; color: var(--text); margin-bottom: 22px; }
+    .hero .lead { font-size: 1.08rem; color: var(--text-muted); max-width: 640px; margin-bottom: 34px; }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: 0.95rem;
+      padding: 13px 22px; border-radius: 12px; cursor: pointer; transition: all 0.22s ease; border: 1px solid transparent;
+    }
+    .btn-primary { background: linear-gradient(120deg, var(--accent), var(--accent-2)); color: #06121f; box-shadow: 0 10px 30px -10px var(--accent); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -12px var(--accent); }
+    .btn-ghost { background: var(--bg-card); border-color: var(--border); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+    .socials { display: flex; gap: 12px; margin-top: 30px; }
+    .socials a {
+      width: 44px; height: 44px; border-radius: 11px; display: grid; place-items: center;
+      background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted); transition: all 0.2s;
+    }
+    .socials a:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+    .socials svg { width: 20px; height: 20px; }
+
+    /* ---------- Sections ---------- */
+    section { padding: 70px 0; }
+    .section-head { margin-bottom: 44px; }
+    .section-head .kicker { font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--accent); letter-spacing: 0.04em; margin-bottom: 10px; }
+    .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; }
+    .section-head p { color: var(--text-muted); margin-top: 10px; max-width: 620px; }
+
+    /* ---------- About stats ---------- */
+    .about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+    .about-text p { color: var(--text-muted); margin-bottom: 18px; font-size: 1.03rem; }
+    .about-text strong { color: var(--text); font-weight: 600; }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stats .stat:last-child { grid-column: 1 / -1; }
+    .stat {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 22px 20px; transition: all 0.25s;
+    }
+    .stat:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stat .num { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em;
+      background: linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .stat .label { font-size: 0.88rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* ---------- Skills ---------- */
+    .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .skill-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px;
+      transition: all 0.25s;
+    }
+    .skill-card:hover { border-color: color-mix(in srgb, var(--accent) 50%, var(--border)); transform: translateY(-3px); box-shadow: var(--shadow); }
+    .skill-card h3 { font-size: 1.05rem; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .skill-card h3 .ic { color: var(--accent); display: grid; place-items: center; }
+    .skill-card h3 .ic svg { width: 20px; height: 20px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-size: 0.82rem; font-family: 'JetBrains Mono', monospace; color: var(--text-muted);
+      background: var(--bg-soft); border: 1px solid var(--border-soft); padding: 5px 11px; border-radius: 8px;
+      transition: all 0.18s;
+    }
+    .tag:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ---------- Experience timeline ---------- */
+    .timeline { position: relative; padding-left: 34px; }
+    .timeline::before {
+      content: ""; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px;
+      background: linear-gradient(var(--accent), var(--accent-2), transparent);
+    }
+    .tl-item { position: relative; padding-bottom: 42px; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-item::before {
+      content: ""; position: absolute; left: -33px; top: 6px; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--bg); border: 3px solid var(--accent); box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+    .tl-item .period { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent); margin-bottom: 6px; }
+    .tl-item h3 { font-size: 1.18rem; font-weight: 700; }
+    .tl-item .company { color: var(--text-muted); font-weight: 500; margin-bottom: 14px; font-size: 0.98rem; }
+    .tl-item .company .loc { color: var(--text-dim); }
+    .tl-item ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .tl-item ul li { position: relative; padding-left: 22px; color: var(--text-muted); font-size: 0.97rem; }
+    .tl-item ul li::before {
+      content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 2px;
+      background: var(--accent); transform: rotate(45deg);
+    }
+    .tl-item ul li strong { color: var(--text); font-weight: 600; }
+    .sub-list { margin-top: 6px; padding-left: 6px; }
+    .sub-list li::before { background: var(--accent-2) !important; }
+
+    /* ---------- Projects ---------- */
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .project {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 26px; transition: all 0.25s; display: flex; flex-direction: column; position: relative; overflow: hidden;
+    }
+    .project::after {
+      content: ""; position: absolute; inset: 0; border-radius: var(--radius); padding: 1px;
+      background: linear-gradient(120deg, transparent, transparent); pointer-events: none; opacity: 0; transition: opacity 0.3s;
+    }
+    .project:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); box-shadow: var(--shadow); }
+    .project.featured { grid-column: 1 / -1; background: linear-gradient(135deg, var(--bg-card), var(--bg-soft)); border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); }
+    .project .p-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+    .project h3 { font-size: 1.2rem; font-weight: 700; line-height: 1.3; }
+    .project .p-role { font-size: 0.82rem; color: var(--text-dim); font-family: 'JetBrains Mono', monospace; margin-top: 3px; }
+    .badge-live {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; font-weight: 600;
+      color: var(--accent); background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      padding: 4px 10px; border-radius: 999px; white-space: nowrap;
+    }
+    .badge-live .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+    .project p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px; flex: 1; }
+    .project .p-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+    .project .p-link { display: inline-flex; align-items: center; gap: 7px; font-size: 0.9rem; font-weight: 600; color: var(--accent); }
+    .project .p-link svg { width: 15px; height: 15px; transition: transform 0.2s; }
+    .project .p-link:hover svg { transform: translate(2px, -2px); }
+
+    /* ---------- Education / Interests ---------- */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .info-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+    .info-card > h3 { font-size: 1.1rem; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .info-card > h3 .ic { color: var(--accent); }
+    .info-card > h3 .ic svg { width: 20px; height: 20px; display: block; }
+    .edu-item h4 { font-size: 1.02rem; font-weight: 700; }
+    .edu-item .inst { color: var(--text-muted); font-size: 0.95rem; margin: 4px 0 8px; }
+    .edu-item .yr { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent); }
+    .interests { display: flex; flex-wrap: wrap; gap: 10px; }
+    .interest {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 0.92rem; color: var(--text-muted);
+      background: var(--bg-soft); border: 1px solid var(--border-soft); padding: 9px 15px; border-radius: 10px; transition: all 0.2s;
+    }
+    .interest:hover { color: var(--text); border-color: var(--accent); transform: translateY(-2px); }
+
+    /* ---------- Contact ---------- */
+    .contact-box {
+      background: linear-gradient(135deg, var(--bg-card), var(--bg-soft));
+      border: 1px solid var(--border); border-radius: 24px; padding: 56px 40px; text-align: center; position: relative; overflow: hidden;
+    }
+    .contact-box::before {
+      content: ""; position: absolute; top: -50%; left: 50%; transform: translateX(-50%);
+      width: 500px; height: 500px; background: radial-gradient(circle, var(--accent-soft), transparent 70%); pointer-events: none;
+    }
+    .contact-box h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 14px; position: relative; }
+    .contact-box p { color: var(--text-muted); max-width: 520px; margin: 0 auto 30px; position: relative; font-size: 1.05rem; }
+    .contact-box .cta-row { justify-content: center; position: relative; }
+
+    /* ---------- Footer ---------- */
+    footer { border-top: 1px solid var(--border-soft); padding: 34px 0; }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-inner p { color: var(--text-dim); font-size: 0.88rem; }
+    .footer-links { display: flex; gap: 22px; }
+    .footer-links a { color: var(--text-muted); font-size: 0.88rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ---------- Reveal animation ---------- */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 860px) {
+      .about-grid, .skills-grid, .projects-grid, .two-col { grid-template-columns: 1fr; }
+      .project.featured { grid-column: auto; }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .menu-toggle { display: grid; place-items: center; width: 40px; height: 40px; }
+      .nav-links.open {
+        display: flex; position: absolute; top: 72px; right: 24px; left: 24px; flex-direction: column;
+        align-items: flex-start; gap: 6px; background: var(--bg-card); border: 1px solid var(--border);
+        border-radius: 14px; padding: 16px; box-shadow: var(--shadow);
+      }
+      .nav-links.open a { padding: 8px 4px; width: 100%; }
+      .hero { padding: 60px 0 48px; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      section { padding: 54px 0; }
+      .contact-box { padding: 40px 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-fx"></div>
+  <div class="grid-fx"></div>
+
+  <!-- ============ NAV ============ -->
+  <header id="header">
+    <nav>
+      <a href="#top" class="brand"><span class="dot"></span> Lakshan Peramuna</a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow reveal"><span class="pulse"></span> Available for opportunities · Perth, WA, Australia</div>
+        <h1 class="reveal">Hi, I'm Lakshan <span class="grad">Peramuna</span></h1>
+        <div class="role reveal">Full-Stack Software Engineer</div>
+        <p class="lead reveal">Self-motivated engineer with <strong>7+ years</strong> designing and building scalable web applications across education, e-commerce, healthcare and HR. I specialise in RESTful API design, performance optimisation, and applying <strong>AI across the full software development life cycle</strong> — from requirements analysis and design through to implementation, code review, testing and delivery.</p>
+        <div class="cta-row reveal">
+          <a href="#projects" class="btn btn-primary">
+            View my work
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="assets/Lakshan_Peramuna_CV.pdf" class="btn btn-ghost" download>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download CV
+          </a>
+        </div>
+        <div class="socials reveal">
+          <a href="https://github.com/lbp003" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.8 18.3 5.1 18.3 5.1c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/lakshan-peramuna" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.3a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5zM19 19h-3v-4.7c0-1.1 0-2.6-1.6-2.6S12.6 13 12.6 14.2V19h-3v-9h2.9v1.2h.1a3.2 3.2 0 0 1 2.9-1.6c3 0 3.6 2 3.6 4.6z"/></svg>
+          </a>
+          <a href="mailto:pglbuddhika@gmail.com" aria-label="Email" title="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">// about</div>
+          <h2>Professional Summary</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-text reveal">
+            <p>I'm a self-motivated full-stack software engineer with <strong>7+ years of experience</strong> designing and building scalable web applications using PHP (Zend, Laravel, Symfony), JavaScript (React, Vue, Next.js) and relational databases (MySQL, PostgreSQL).</p>
+            <p>I have a strong background in <strong>RESTful API design, performance optimisation and asynchronous processing</strong> using RabbitMQ and JMeter.</p>
+            <p>I'm experienced in spec-driven development and <strong>AI-assisted engineering across the entire software development life cycle</strong> — using AI at every stage rather than just for writing code: Claude for requirements analysis and clarification, architectural research and design validation, refactoring and documentation, and CodeRabbit AI for automated pull request reviews and code-quality checks. This lets me move faster while keeping quality high.</p>
+            <p>I work end-to-end in Agile teams, collaborating closely with stakeholders and delivering reliable solutions across <strong>education, e-commerce, healthcare and HR</strong> domains.</p>
+          </div>
+          <div class="stats reveal">
+            <div class="stat"><div class="num">7+</div><div class="label">Years of experience</div></div>
+            <div class="stat"><div class="num">8+</div><div class="label">Production projects</div></div>
+            <div class="stat"><div class="num">4</div><div class="label">Industry domains</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SKILLS ============ -->
+    <section id="skills">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">// skills</div>
+          <h2>Technical Toolkit</h2>
+          <p>The technologies and practices I use to design, build and ship reliable software.</p>
+        </div>
+        <div class="skills-grid">
+          <div class="skill-card reveal">
+            <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5M17 3l3 4-3 4M7 21l-3-4 3-4"/></svg></span> Backend</h3>
+            <div class="tags">
+              <span class="tag">PHP</span><span class="tag">Laravel</span><span class="tag">Symfony</span><span class="tag">Zend</span>
+              <span class="tag">RESTful APIs</span><span class="tag">OrangeHRM</span><span class="tag">RabbitMQ</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span> Frontend</h3>
+            <div class="tags">
+              <span class="tag">JavaScript</span><span class="tag">React.js</span><span class="tag">Vue.js</span><span class="tag">Next.js</span>
+              <span class="tag">jQuery</span><span class="tag">Bootstrap</span><span class="tag">HTML5</span><span class="tag">CSS</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span> Databases</h3>
+            <div class="tags">
+              <span class="tag">MySQL</span><span class="tag">PostgreSQL</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg></span> DevOps &amp; Tools</h3>
+            <div class="tags">
+              <span class="tag">Docker</span><span class="tag">AWS</span><span class="tag">GCP</span><span class="tag">GitLab</span>
+              <span class="tag">GitHub</span><span class="tag">Bitbucket</span><span class="tag">SonarCloud</span><span class="tag">JMeter</span><span class="tag">JIRA</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v2M12 19v2M5 12H3M21 12h-2M6.3 6.3 4.9 4.9M19.1 19.1l-1.4-1.4M17.7 6.3l1.4-1.4M4.9 19.1l1.4-1.4"/><circle cx="12" cy="12" r="4"/></svg></span> AI Across the Full SDLC</h3>
+            <div class="tags">
+              <span class="tag">Claude</span><span class="tag">CodeRabbit AI</span><span class="tag">Google Antigravity</span><span class="tag">Spec-driven dev</span><span class="tag">AI agents</span>
+              <span class="tag">Requirements analysis</span><span class="tag">Design validation</span><span class="tag">Refactoring</span><span class="tag">Code review</span><span class="tag">Documentation</span>
+            </div>
+          </div>
+          <div class="skill-card reveal">
+            <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span> Practices</h3>
+            <div class="tags">
+              <span class="tag">Agile / Scrum</span><span class="tag">Code Reviews</span><span class="tag">Unit Testing</span><span class="tag">Functional Testing</span><span class="tag">Performance Testing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCE ============ -->
+    <section id="experience">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">// experience</div>
+          <h2>Professional Experience</h2>
+        </div>
+        <div class="timeline">
+          <div class="tl-item reveal">
+            <div class="period">Jul 2025 — Present</div>
+            <h3>Freelance Software Engineer</h3>
+            <div class="company">Self-employed <span class="loc">· Perth, WA, Australia</span></div>
+            <ul>
+              <li>Designing and developing a scalable <strong>wedding management platform</strong> for real-world customers, covering admins, customers and vendors.</li>
+              <li>Built authentication and role-based access using <strong>Laravel Breeze (API)</strong> and Next.js.</li>
+              <li>Implemented backend APIs using Laravel and frontend features using React / Next.js.</li>
+              <li>Focused on performance, maintainability and clean architecture for long-term scalability.</li>
+              <li>Leveraged AI-assisted development tools to accelerate delivery while maintaining high code quality:
+                <ul class="sub-list">
+                  <li><strong>Claude Code</strong> for research, refactoring insights and architectural validation.</li>
+                  <li><strong>CodeRabbit AI</strong> for automated pull request reviews and code-quality checks.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="tl-item reveal">
+            <div class="period">Jan 2022 — Jun 2025</div>
+            <h3>Software Engineer</h3>
+            <div class="company">Eyepax IT Consulting (Pvt) Ltd <span class="loc">· Colombo, Sri Lanka</span></div>
+            <ul>
+              <li>Worked primarily as a <strong>backend engineer</strong> on a workload and performance management system used by over <strong>30 universities in the UK</strong>.</li>
+              <li>Designed and implemented backend modules using <strong>Symfony API Platform</strong> and integrated with a React.js frontend.</li>
+              <li>Performed functional and unit testing, peer code reviews and merge request approvals to maintain high code quality.</li>
+              <li>Used <strong>RabbitMQ</strong> for asynchronous processing and <strong>JMeter</strong> for API performance testing and optimisation.</li>
+              <li>Collaborated directly with clients through regular meetings, clarifying requirements and ensuring alignment with business goals.</li>
+            </ul>
+          </div>
+
+          <div class="tl-item reveal">
+            <div class="period">Dec 2020 — Jan 2022</div>
+            <h3>Software Engineer</h3>
+            <div class="company">hSenid Business Solutions <span class="loc">· Colombo, Sri Lanka</span></div>
+            <ul>
+              <li>Contributed to enhancements and maintenance of HR and payroll solutions built on the <strong>OrangeHRM framework</strong>.</li>
+              <li>Participated in planning and R&amp;D activities for migrating legacy data and systems to modernised architectures.</li>
+              <li>Collaborated with government stakeholders (<strong>ICTA Sri Lanka</strong>) to ensure compliance with security and regulatory standards.</li>
+            </ul>
+          </div>
+
+          <div class="tl-item reveal">
+            <div class="period">May 2018 — Nov 2020</div>
+            <h3>Software Engineer</h3>
+            <div class="company">Fexcon (Pvt) Ltd <span class="loc">· Colombo, Sri Lanka</span></div>
+            <ul>
+              <li>Developed and maintained web applications for clients in <strong>e-commerce, safety compliance and specialist engineering</strong> domains.</li>
+              <li>Implemented backend features using PHP (<strong>Zend Framework, Laravel</strong>) and MySQL, and built responsive UIs using Bootstrap and jQuery.</li>
+              <li>Integrated secure <strong>payment gateways</strong> for multiple platforms, ensuring smooth and reliable payment flows.</li>
+              <li>Worked closely with cross-functional teams to gather requirements, plan releases and resolve production issues.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="kicker">// projects</div>
+          <h2>Selected Projects</h2>
+          <p>A selection of platforms and products I've architected and built across multiple domains.</p>
+        </div>
+        <div class="projects-grid">
+
+          <div class="project featured reveal">
+            <div class="p-top">
+              <div>
+                <h3>Ceylon Weddings — Wedding Management Platform</h3>
+                <div class="p-role">Architect &amp; Full-Stack Developer · Freelance</div>
+              </div>
+              <span class="badge-live"><span class="pulse"></span> Live in production</span>
+            </div>
+            <p>Architected and developed a scalable wedding management platform using a decoupled, <strong>API-first architecture</strong>. The backend is implemented with Laravel, exposing secure RESTful APIs consumed by a Next.js/React frontend. Authentication and authorization use <strong>role-based access control</strong> to support distinct admin, customer and vendor workflows. Development focuses on maintainability, performance and clean architecture — leveraging AI-assisted engineering tools including <strong>Claude Code</strong> and OpenAI Codex for feature development and refactoring, along with CodeRabbit AI for automated PR reviews.</p>
+            <div class="p-tags">
+              <span class="tag">Laravel</span><span class="tag">Next.js</span><span class="tag">React</span><span class="tag">RESTful API</span><span class="tag">RBAC</span><span class="tag">Claude Code</span>
+            </div>
+            <a href="https://ceylonweddings.com" target="_blank" rel="noopener" class="p-link">
+              Visit ceylonweddings.com
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+            </a>
+          </div>
+
+          <div class="project reveal">
+            <div class="p-top">
+              <div>
+                <h3>Simitive (WAMS)</h3>
+                <div class="p-role">Backend Engineer · Eyepax</div>
+              </div>
+            </div>
+            <p>Workload &amp; Performance Management System adopted by <strong>30+ UK universities</strong>. Backend-focused role covering module design, implementation, automated tests and deployments.</p>
+            <div class="p-tags">
+              <span class="tag">Symfony API</span><span class="tag">React.js</span><span class="tag">GitLab</span><span class="tag">JMeter</span><span class="tag">RabbitMQ</span>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="p-top">
+              <div>
+                <h3>Ministry of Finance — Payroll Revamp</h3>
+                <div class="p-role">Software Engineer · hSenid</div>
+              </div>
+            </div>
+            <p>Revamped an existing government payroll system on the OrangeHRM framework. Implemented new requirements and modern UI, supported R&amp;D for legacy data migration, and collaborated with <strong>ICTA Sri Lanka</strong> on security compliance.</p>
+            <div class="p-tags">
+              <span class="tag">PHP Symfony</span><span class="tag">Vue.js</span><span class="tag">OrangeHRM</span>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="p-top">
+              <div>
+                <h3>SafetyTask</h3>
+                <div class="p-role">Software Engineer · Fexcon</div>
+              </div>
+            </div>
+            <p>Health &amp; Safety compliance platform. Implemented front-end features and backend modules, integrated payment gateways and improved workflows for organisations managing workplace safety requirements.</p>
+            <div class="p-tags">
+              <span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Bootstrap</span><span class="tag">jQuery</span>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="p-top">
+              <div>
+                <h3>PEWeldBank</h3>
+                <div class="p-role">Software Engineer · Fexcon</div>
+              </div>
+            </div>
+            <p>PE pipe welding data &amp; assessment platform. Contributed to system and database design and implementation, supporting data logging, tutorials and welding assessment features with subscription payments.</p>
+            <div class="p-tags">
+              <span class="tag">PHP Zend</span><span class="tag">MySQL</span><span class="tag">Bootstrap</span>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="p-top">
+              <div>
+                <h3>MediSeek</h3>
+                <div class="p-role">Software Engineer · Fexcon</div>
+              </div>
+            </div>
+            <p>Telemedicine platform supporting remote doctor consultations during the COVID-19 pandemic. Participated in the design and development of the end-to-end solution.</p>
+            <div class="p-tags">
+              <span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">Bootstrap</span><span class="tag">jQuery</span>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="p-top">
+              <div>
+                <h3>Wishque</h3>
+                <div class="p-role">Software Engineer · Fexcon</div>
+              </div>
+            </div>
+            <p>Online shopping platform. Implemented front-end features, optimised backend functionality and integrated payment gateways to ensure seamless and secure transactions.</p>
+            <div class="p-tags">
+              <span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Bootstrap</span><span class="tag">jQuery</span>
+            </div>
+          </div>
+
+          <div class="project reveal">
+            <div class="p-top">
+              <div>
+                <h3>Track My Journey</h3>
+                <div class="p-role">Freelance · Backend</div>
+              </div>
+            </div>
+            <p>GPS tracking app backend implemented with Laravel and MySQL, with a Bootstrap/jQuery frontend, deployed on <strong>Google Cloud Platform</strong>. Collaborated closely with the client on requirements, system design and release planning.</p>
+            <div class="p-tags">
+              <span class="tag">Laravel</span><span class="tag">MySQL</span><span class="tag">GCP</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EDUCATION + INTERESTS ============ -->
+    <section id="education">
+      <div class="wrap">
+        <div class="two-col">
+          <div class="info-card reveal">
+            <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.5 3 6 3s6-2 6-3v-5"/></svg></span> Education</h3>
+            <div class="edu-item">
+              <h4>BIT — Bachelor of Information Technology</h4>
+              <div class="inst">University of Colombo School of Computing (UCSC), Sri Lanka</div>
+              <div class="yr">2016 — 2019</div>
+            </div>
+          </div>
+          <div class="info-card reveal">
+            <h3><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2Z"/><line x1="9" y1="22" x2="15" y2="22"/></svg></span> Interests</h3>
+            <div class="interests">
+              <span class="interest">✈️ Travel</span>
+              <span class="interest">⚽ Football</span>
+              <span class="interest">🔒 Cyber Security</span>
+              <span class="interest">🔭 Astronomy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-box reveal">
+          <h2>Let's build something great</h2>
+          <p>I'm open to full-stack engineering opportunities and interesting collaborations. Feel free to reach out — I'd love to hear from you.</p>
+          <div class="cta-row">
+            <a href="mailto:pglbuddhika@gmail.com" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+              Email me
+            </a>
+            <a href="https://www.linkedin.com/in/lakshan-peramuna" target="_blank" rel="noopener" class="btn btn-ghost">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.3a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5zM19 19h-3v-4.7c0-1.1 0-2.6-1.6-2.6S12.6 13 12.6 14.2V19h-3v-9h2.9v1.2h.1a3.2 3.2 0 0 1 2.9-1.6c3 0 3.6 2 3.6 4.6z"/></svg>
+              Connect on LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="wrap footer-inner">
+      <p>© <span id="year"></span> Lakshan Peramuna · Built with care in Perth, WA</p>
+      <div class="footer-links">
+        <a href="https://github.com/lbp003" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/lakshan-peramuna" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:pglbuddhika@gmail.com">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle (persisted)
+    const themeBtn = document.getElementById('themeBtn');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') { root.setAttribute('data-theme', 'light'); themeBtn.textContent = '☀️'; }
+    themeBtn.addEventListener('click', () => {
+      const isLight = root.getAttribute('data-theme') === 'light';
+      if (isLight) { root.removeAttribute('data-theme'); themeBtn.textContent = '🌙'; localStorage.setItem('theme', 'dark'); }
+      else { root.setAttribute('data-theme', 'light'); themeBtn.textContent = '☀️'; localStorage.setItem('theme', 'light'); }
+    });
+
+    // Sticky nav border
+    const header = document.getElementById('header');
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 10);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i % 4 * 0.06) + 's';
+      io.observe(el);
+    });
+  </script>
+</body>
+</html>
